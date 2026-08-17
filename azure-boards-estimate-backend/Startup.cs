@@ -33,8 +33,8 @@ namespace Estimate
                 {
                     builder.AllowAnyHeader()
                         .AllowAnyMethod()
-                        .AllowCredentials()
-                        .SetIsOriginAllowed(host => true);
+                        .SetIsOriginAllowed(host => true)
+                        .AllowCredentials();
                 });
             });
             services.AddMvc();
