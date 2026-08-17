@@ -2,9 +2,9 @@ using Estimate.Hubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace Estimate
 {
@@ -34,7 +34,7 @@ namespace Estimate
                     builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials();
                 });
             });
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc();
             services.AddSignalR(config =>
             {
                 config.EnableDetailedErrors = true;
@@ -42,7 +42,7 @@ namespace Estimate
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -60,11 +60,9 @@ namespace Estimate
             app.UseCookiePolicy();
 
             app.UseCors();
-            app.UseMvc();
-
-            app.UseSignalR(config =>
+            app.UseEndpoints(endpoints =>
             {
-                config.MapHub<EstimateHub>("/estimate");
+                endpoints.MapHub<EstimateHub>("/estimate");
             });
         }
     }
