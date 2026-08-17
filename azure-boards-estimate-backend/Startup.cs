@@ -62,8 +62,8 @@ namespace Estimate
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            app.UseCors();
             app.UseRouting();
+            app.UseCors();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHub<EstimateHub>("/estimate");
