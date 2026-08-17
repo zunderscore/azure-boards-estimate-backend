@@ -20,7 +20,7 @@ namespace Estimate
                 })
                 .Build();
 
-            await host.StartAsync();
+            await host.RunAsync();
         }
     }
 }

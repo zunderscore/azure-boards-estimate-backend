@@ -31,7 +31,9 @@ namespace Estimate
             {
                 options.AddDefaultPolicy(builder =>
                 {
-                    builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials();
+                    builder.AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowAnyOrigin();
                 });
             });
             services.AddMvc();
@@ -60,6 +62,7 @@ namespace Estimate
             app.UseCookiePolicy();
 
             app.UseCors();
+            app.UseRouting();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHub<EstimateHub>("/estimate");
